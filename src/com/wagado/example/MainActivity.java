@@ -7,12 +7,14 @@ import android.view.MenuItem;
 
 import com.wagado.widget.CanvasAnimation;
 import com.wagado.widget.CanvasAnimationView;
-import com.wagado.widget.OvalCanvasAnimation;
+import com.wagado.widget.CellCanvasAnimation;
+import com.wagado.widget.EllipseCanvasAnimation;
 
 public class MainActivity extends Activity {
 
 	private CanvasAnimationView mAnimationView;
 	private CanvasAnimation mEllipseAnimation;
+	private CanvasAnimation mCellAnimation;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +23,8 @@ public class MainActivity extends Activity {
 
 		mAnimationView = (CanvasAnimationView) findViewById(R.id.animation_view);
 
-		mEllipseAnimation = new OvalCanvasAnimation(3000, true, 6, 6);
+		mEllipseAnimation = new EllipseCanvasAnimation(3000, true);
+		mCellAnimation = new CellCanvasAnimation(2000, true, 6, 6);
 	}
 
 	@Override
@@ -36,6 +39,11 @@ public class MainActivity extends Activity {
 		switch (item.getItemId()) {
 			case R.id.item_ellipse:
 				mAnimationView.setCanvasAnimation(mEllipseAnimation);
+				mAnimationView.startCanvasAnimation();
+				return true;
+
+			case R.id.item_cell:
+				mAnimationView.setCanvasAnimation(mCellAnimation);
 				mAnimationView.startCanvasAnimation();
 				return true;
 
