@@ -3,6 +3,7 @@ package com.wagado.widget;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -10,6 +11,8 @@ public class CanvasAnimationView extends ImageView {
 	public static final String TAG = "widget.CanvasAnimationView";
 
 	private CanvasAnimation mAnimation;
+	private Bitmap mBitmap;
+	private Canvas mCanvas;
 
 	public CanvasAnimationView(Context context) {
 		this(context, null);
@@ -26,14 +29,17 @@ public class CanvasAnimationView extends ImageView {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		if (getCanvasAnimation() != null) {
-			final Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-			final Canvas tmpCanvas = new Canvas(bitmap);
+			if (mBitmap == null) {
+				mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+				mCanvas = new Canvas(mBitmap);
+			}
 
-			super.onDraw(tmpCanvas);
+			mCanvas.drawColor(Color.TRANSPARENT);
 
-			getCanvasAnimation().animate(this, tmpCanvas);
-			
-			canvas.drawBitmap(bitmap, 0, 0, null);
+			super.onDraw(mCanvas);
+
+			getCanvasAnimation().animate(this, mCanvas);
+			canvas.drawBitmap(mBitmap, 0, 0, null);
 		} else {
 			super.onDraw(canvas);
 		}
@@ -44,6 +50,13 @@ public class CanvasAnimationView extends ImageView {
 
 	public void setCanvasAnimation(CanvasAnimation animation) {
 		mAnimation = animation;
+
+		if (mBitmap != null) {
+			mBitmap.recycle();
+			mBitmap = null;
+		}
+
+		mCanvas = null;
 	}
 
 	public CanvasAnimation getCanvasAnimation() {
