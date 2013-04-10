@@ -54,7 +54,7 @@ public abstract class CanvasAnimation {
 		}
 
 		if (isExpired) {
-			if (isEnded) {
+			if (!isEnded) {
 				fireAnimationEnd();
 				isEnded = true;
 			}
