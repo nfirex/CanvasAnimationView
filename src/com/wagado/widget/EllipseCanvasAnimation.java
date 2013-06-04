@@ -6,6 +6,8 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 
+import com.wagado.widget.CanvasAnimationView.CanvasAnimation;
+
 
 public class EllipseCanvasAnimation extends CanvasAnimation {
 	private final Paint mPaint;

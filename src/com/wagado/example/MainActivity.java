@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.wagado.widget.CanvasAnimation;
 import com.wagado.widget.CanvasAnimationView;
+import com.wagado.widget.CanvasAnimationView.CanvasAnimation;
 import com.wagado.widget.CellCanvasAnimation;
 import com.wagado.widget.EllipseCanvasAnimation;
 

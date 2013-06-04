@@ -5,6 +5,8 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 
+import com.wagado.widget.CanvasAnimationView.CanvasAnimation;
+
 public class CellCanvasAnimation extends CanvasAnimation {
 	private final int mCellsInWidth;
 	private final int mCellsInHeight;
