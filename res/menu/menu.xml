@@ -9,5 +9,9 @@
 		android:id="@+id/item_cell"
 		android:title="cell">
 	</item>
+	<item
+		android:id="@+id/item_circles"
+		android:title="circles">
+	</item>
 
 </menu>
