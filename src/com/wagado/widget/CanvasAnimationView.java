@@ -182,8 +182,8 @@ public class CanvasAnimationView extends ImageView {
 
 			if (isExpired) {
 				if (!isEnded) {
-					fireAnimationEnd();
 					isEnded = true;
+					fireAnimationEnd();
 				}
 
 				if (isFillAfter()) {
