@@ -10,13 +10,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.wagado.example.animations.CellCanvasAnimation;
+import com.wagado.example.animations.CirclesCanvasAnimation;
+import com.wagado.example.animations.EllipseCanvasAnimation;
+import com.wagado.example.animations.EllipseInfiniteCanvasAnimation;
+import com.wagado.example.animations.CirclesCanvasAnimation.Circle;
 import com.wagado.widget.CanvasAnimationView;
 import com.wagado.widget.CanvasAnimationView.CanvasAnimation;
-import com.wagado.widget.CellCanvasAnimation;
-import com.wagado.widget.CirclesCanvasAnimation;
-import com.wagado.widget.CirclesCanvasAnimation.Circle;
-import com.wagado.widget.EllipseCanvasAnimation;
-import com.wagado.widget.EllipseInfiniteCanvasAnimation;
 
 public class MainActivity extends Activity {
 

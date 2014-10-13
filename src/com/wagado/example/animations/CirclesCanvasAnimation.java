@@ -1,4 +1,4 @@
-package com.wagado.widget;
+package com.wagado.example.animations;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 import com.wagado.widget.CanvasAnimationView.CanvasAnimation;
-
 
 public class CirclesCanvasAnimation extends CanvasAnimation {
 	private final List<Circle> mCircles = new ArrayList<Circle>();

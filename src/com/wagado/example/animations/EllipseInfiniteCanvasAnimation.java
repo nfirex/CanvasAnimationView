@@ -1,4 +1,4 @@
-package com.wagado.widget;
+package com.wagado.example.animations;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -7,7 +7,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 
 import com.wagado.widget.CanvasAnimationView.CanvasAnimation;
-
 
 public class EllipseInfiniteCanvasAnimation extends CanvasAnimation {
 	private final Paint mPaint;

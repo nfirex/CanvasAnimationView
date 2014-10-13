@@ -1,4 +1,4 @@
-package com.wagado.widget;
+package com.wagado.example.animations;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
