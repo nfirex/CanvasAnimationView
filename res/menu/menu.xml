@@ -3,15 +3,15 @@
 
 	<item
 		android:id="@+id/item_ellipse"
-		android:title="ellipse">
-	</item>
+		android:title="ellipse" />
+	<item
+		android:id="@+id/item_ellipse_infinite"
+		android:title="ellipse (infinite)" />
 	<item
 		android:id="@+id/item_cell"
-		android:title="cell">
-	</item>
+		android:title="cell" />
 	<item
 		android:id="@+id/item_circles"
-		android:title="circles">
-	</item>
+		android:title="circles" />
 
 </menu>

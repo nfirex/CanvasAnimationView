@@ -74,13 +74,15 @@ public class CanvasAnimationView extends ImageView {
 	}
 
 	/**
-	 * Start setted CanvasAnimation. If CanvasAnimation is null - nothing happen
+	 * Start setted CanvasAnimation. If CanvasAnimation is null or CanvasAnimation.getLoopCount()==0 - nothing happen
 	 */
 	public void startCanvasAnimation() {
-		if (getCanvasAnimation() != null) {
-			getCanvasAnimation().reset();
-			invalidate();
+		if (getCanvasAnimation() == null || getCanvasAnimation().getLoopCount() == 0) {
+			return;
 		}
+
+		getCanvasAnimation().reset();
+		invalidate();
 	}
 
 
@@ -92,13 +94,18 @@ public class CanvasAnimationView extends ImageView {
 	 *
 	 */
 	public static abstract class CanvasAnimation {
-		final private long mDuration;
-		final private boolean isFillAfter;
+		public static final int LOOP_INFINITE = -1;
+		public static final int LOOP_DEFAULT = 1;
+
+		private final long mDuration;
+		private final boolean isFillAfter;
 
 		public boolean isStarted;
 		public boolean isExpired;
 		public boolean isEnded;
 
+		private int mLoopCount = LOOP_DEFAULT;
+		private int mCurrentLoop;
 		private long mStartTime;
 		private IAnimationListener mListener;
 
@@ -106,6 +113,9 @@ public class CanvasAnimationView extends ImageView {
 			mDuration = duration;
 			isFillAfter = fillAfter;
 		}
+
+
+
 
 		/**
 		 * Set default/start values
@@ -115,7 +125,26 @@ public class CanvasAnimationView extends ImageView {
 			isExpired = false;
 			isEnded = false;
 
+			mCurrentLoop = mLoopCount;
+
 			mStartTime = Animation.START_ON_FIRST_FRAME;
+		}
+
+		/**
+		 * Set how many times animation will repeat.<br>
+		 * For infinite repeat set loopCount < 0;
+		 * @param loopCount - repeat count
+		 */
+		public void setLoopCount(int loopCount) {
+			mLoopCount = loopCount;
+		}
+
+		/**
+		 * Count of repeats in animation
+		 * @return loop count
+		 */
+		public int getLoopCount() {
+			return mLoopCount;
 		}
 
 		/**
@@ -173,8 +202,7 @@ public class CanvasAnimationView extends ImageView {
 
 			if (normalizedTime >= 0.0f && normalizedTime <= 1.0f) {
 				if (!isStarted) {
-					fireAnimationStart();
-					isStarted = true;
+					start();
 				}
 
 				handle(canvas, normalizedTime);
@@ -182,12 +210,16 @@ public class CanvasAnimationView extends ImageView {
 
 			if (isExpired) {
 				if (!isEnded) {
-					isEnded = true;
-					fireAnimationEnd();
+					end();
 				}
 
 				if (isFillAfter()) {
 					handle(canvas, normalizedTime);
+				}
+
+				if (mCurrentLoop != 0) {
+					repeat();
+					view.invalidate();
 				}
 			} else {
 				view.invalidate();
@@ -200,6 +232,41 @@ public class CanvasAnimationView extends ImageView {
 		 * @param normalizedTime - value is from 0 to 1
 		 */
 		protected abstract void handle(Canvas canvas, float normalizedTime);
+
+		/**
+		 * Handle start of animation
+		 */
+		protected void start() {
+			isStarted = true;
+
+			mCurrentLoop --;
+
+			fireAnimationStart();
+		}
+
+		/**
+		 * Handle end of animation.
+		 */
+		protected void end() {
+			isEnded = true;
+
+			fireAnimationEnd();
+		}
+
+		/**
+		 * Repeat animation
+		 */
+		protected void repeat() {
+			if (mLoopCount < 0) {
+				mCurrentLoop = mLoopCount;
+			}
+
+			isStarted = false;
+			isExpired = false;
+			isEnded = false;
+
+			mStartTime = Animation.START_ON_FIRST_FRAME;
+		}
 
 		/**
 		 * Notify when animation is begin
@@ -229,8 +296,7 @@ public class CanvasAnimationView extends ImageView {
 		void onAnimationStart(CanvasAnimation animation);
 
 		/**
-		 * <p>Notifies the end of the animation. This callback is not invoked
-		 * for animations with repeat count set to INFINITE.</p>
+		 * <p>Notifies the end of the animation.</p>
 		 *
 		 * @param animation The animation which reached its end.
 		 */

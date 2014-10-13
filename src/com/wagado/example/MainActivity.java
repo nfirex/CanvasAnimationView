@@ -16,11 +16,13 @@ import com.wagado.widget.CellCanvasAnimation;
 import com.wagado.widget.CirclesCanvasAnimation;
 import com.wagado.widget.CirclesCanvasAnimation.Circle;
 import com.wagado.widget.EllipseCanvasAnimation;
+import com.wagado.widget.EllipseInfiniteCanvasAnimation;
 
 public class MainActivity extends Activity {
 
 	private CanvasAnimationView mAnimationView;
 	private CanvasAnimation mEllipseAnimation;
+	private CanvasAnimation mEllipseInfiniteAnimation;
 	private CanvasAnimation mCellAnimation;
 	private CirclesCanvasAnimation mCirclesAnimation;
 
@@ -32,6 +34,7 @@ public class MainActivity extends Activity {
 		mAnimationView = (CanvasAnimationView) findViewById(R.id.animation_view);
 
 		mEllipseAnimation = new EllipseCanvasAnimation(3000, true);
+		mEllipseInfiniteAnimation = new EllipseInfiniteCanvasAnimation(6000, true);
 		mCellAnimation = new CellCanvasAnimation(2000, true, 6, 6);
 		mCirclesAnimation = new CirclesCanvasAnimation(3000, true);
 	}
@@ -48,6 +51,11 @@ public class MainActivity extends Activity {
 		switch (item.getItemId()) {
 			case R.id.item_ellipse:
 				mAnimationView.setCanvasAnimation(mEllipseAnimation);
+				mAnimationView.startCanvasAnimation();
+				return true;
+
+			case R.id.item_ellipse_infinite:
+				mAnimationView.setCanvasAnimation(mEllipseInfiniteAnimation);
 				mAnimationView.startCanvasAnimation();
 				return true;
 
